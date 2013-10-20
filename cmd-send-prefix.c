@@ -32,9 +32,8 @@ const struct cmd_entry cmd_send_prefix_entry = {
 	"[-2] " CMD_TARGET_PANE_USAGE,
 	0,
 	NULL,
-	NULL,
 	cmd_send_prefix_exec
-};
+	NULL
 
 enum cmd_retval
 cmd_send_prefix_exec(struct cmd *self, struct cmd_ctx *ctx)

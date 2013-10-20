@@ -40,7 +40,8 @@ const struct cmd_entry cmd_save_buffer_entry = {
 	"[-a] " CMD_BUFFER_USAGE " path",
 	0,
 	NULL,
-	cmd_save_buffer_exec
+	cmd_save_buffer_exec,
+	NULL
 };
 
 const struct cmd_entry cmd_show_buffer_entry = {
@@ -49,7 +50,8 @@ const struct cmd_entry cmd_show_buffer_entry = {
 	CMD_BUFFER_USAGE,
 	0,
 	NULL,
-	cmd_save_buffer_exec
+	cmd_save_buffer_exec,
+	NULL
 };
 
 enum cmd_retval
