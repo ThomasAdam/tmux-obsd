@@ -1095,6 +1095,8 @@ struct session {
 #define SESSION_UNATTACHED 0x1	/* not attached to any clients */
 	int		 flags;
 
+	u_int            attached;
+
 	struct termios	*tio;
 
 	struct environ	 environ;
