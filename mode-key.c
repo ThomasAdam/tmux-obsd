@@ -96,6 +96,7 @@ const struct mode_key_cmdstr mode_key_cmdstr_choice[] = {
 
 /* Copy keys command strings. */
 const struct mode_key_cmdstr mode_key_cmdstr_copy[] = {
+	{ MODEKEYCOPY_APPENDSELECTION, "append-selection" },
 	{ MODEKEYCOPY_BACKTOINDENTATION, "back-to-indentation" },
 	{ MODEKEYCOPY_BOTTOMLINE, "bottom-line" },
 	{ MODEKEYCOPY_CANCEL, "cancel" },
@@ -262,6 +263,7 @@ const struct mode_key_entry mode_key_vi_copy[] = {
 	{ '9',			    0, MODEKEYCOPY_STARTNUMBERPREFIX },
 	{ ':',			    0, MODEKEYCOPY_GOTOLINE },
 	{ '?',			    0, MODEKEYCOPY_SEARCHUP },
+	{ 'A',			    0, MODEKEYCOPY_APPENDSELECTION },
 	{ 'B',			    0, MODEKEYCOPY_PREVIOUSSPACE },
 	{ 'D',			    0, MODEKEYCOPY_COPYENDOFLINE },
 	{ 'E',			    0, MODEKEYCOPY_NEXTSPACEEND },
