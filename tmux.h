@@ -2382,10 +2382,9 @@ u_int	utf8_split2(u_int, u_char *);
 char   *get_proc_name(int, char *);
 
 /* log.c */
-void		 log_open(int, const char *);
+void		 log_open(const char *);
 void		 log_close(void);
 void printflike1 log_debug(const char *, ...);
-void printflike1 log_debug2(const char *, ...);
 __dead void printflike1 log_fatal(const char *, ...);
 __dead void printflike1 log_fatalx(const char *, ...);
 
