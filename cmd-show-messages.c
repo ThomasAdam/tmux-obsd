@@ -131,6 +131,7 @@ cmd_show_messages_jobs(struct cmd_q *cmdq)
 enum cmd_retval
 cmd_show_messages_exec(unused struct cmd *self, struct cmd_q *cmdq)
 {
+	struct args		*args = self->args;
 	struct client		*c;
 	struct message_entry	*msg;
 	char			*tim;

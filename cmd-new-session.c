@@ -75,8 +75,8 @@ cmd_new_session_exec(struct cmd *self, struct cmd_q *cmdq)
 		}
 		if (session_find(newname) != NULL) {
 			if (args_has(args, 'A')) {
-				return (cmd_attach_session(cmdq, args_has(args,
-				    'D'), 0, NULL));
+				return (cmd_attach_session(cmdq, newname,
+				    args_has(args, 'D'), 0, NULL));
 			}
 			cmdq_error(cmdq, "duplicate session: %s", newname);
 			return (CMD_RETURN_ERROR);

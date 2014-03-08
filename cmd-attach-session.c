@@ -44,7 +44,8 @@ const struct cmd_entry cmd_attach_session_entry = {
 };
 
 enum cmd_retval
-cmd_attach_session(struct cmd_q *cmdq, int dflag, int rflag, const char *cflag)
+cmd_attach_session(struct cmd_q *cmdq, const char *tflag, int dflag, int rflag,
+    const char *cflag)
 {
 	struct session		*s;
 	struct client		*c;
@@ -191,6 +192,6 @@ cmd_attach_session_exec(struct cmd *self, struct cmd_q *cmdq)
 {
 	struct args	*args = self->args;
 
-	return (cmd_attach_session(cmdq, args_has(args, 'd'), args_has(args,
-	    'r'), args_get(args, 'c')));
+	return (cmd_attach_session(cmdq, args_get(args, 't'),
+	    args_has(args, 'd'), args_has(args, 'r'), args_get(args, 'c')));
 }
