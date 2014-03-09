@@ -44,10 +44,10 @@ cmd_kill_window_exec(struct cmd *self, struct cmd_q *cmdq)
 	struct winlink	*wl, *wl2, *wl3;
 	struct session	*s;
 
-	if ((wl = cmdq->state.wl) == NULL)
+	if ((wl = cmdq->current_state.wl) == NULL)
 		return (CMD_RETURN_ERROR);
 
-	s = cmdq->state.s;
+	s = cmdq->current_state.s;
 
 	if (args_has(args, 'a')) {
 		RB_FOREACH_SAFE(wl2, winlinks, &s->windows, wl3) {

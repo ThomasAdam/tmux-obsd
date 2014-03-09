@@ -85,7 +85,7 @@ cmd_run_shell_exec(struct cmd *self, struct cmd_q *cmdq)
 	struct format_tree		*ft;
 
 	if (args_has(args, 't'))
-		wl = cmdq->state.wl;
+		wl = cmdq->current_state.wl;
 	else {
 		c = cmd_find_client(cmdq, NULL, 1);
 		if (c != NULL && c->session != NULL) {
@@ -94,9 +94,9 @@ cmd_run_shell_exec(struct cmd *self, struct cmd_q *cmdq)
 			wp = wl->window->active;
 		}
 	}
-	s = cmdq->state.s;
-	wl = cmdq->state.wl;
-	wp = cmdq->state.wp;
+	s = cmdq->current_state.s;
+	wl = cmdq->current_state.wl;
+	wp = cmdq->current_state.wp;
 
 	ft = format_create();
 	if (s != NULL)

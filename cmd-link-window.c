@@ -44,10 +44,10 @@ cmd_link_window_prepare(struct cmd *self, struct cmd_q *cmdq)
 {
 	struct args	*args = self->args;
 
-	cmdq->state.wl = cmd_find_window(cmdq, args_get(args, 's'),
-	    &cmdq->state.s);
-	cmdq->state.idx = cmd_find_index(cmdq, args_get(args, 't'),
-	    &cmdq->state.s2);
+	cmdq->current_state.wl = cmd_find_window(cmdq, args_get(args, 's'),
+	    &cmdq->current_state.s);
+	cmdq->current_state.idx = cmd_find_index(cmdq, args_get(args, 't'),
+	    &cmdq->current_state.s2);
 }
 
 enum cmd_retval
@@ -58,13 +58,13 @@ cmd_link_window_exec(struct cmd *self, struct cmd_q *cmdq)
 	char		*cause;
 	int		 idx, kflag, dflag;
 
-	if ((wl = cmdq->state.wl) == NULL)
+	if ((wl = cmdq->current_state.wl) == NULL)
 		return (CMD_RETURN_ERROR);
-	if ((idx = cmdq->state.idx) == -2)
+	if ((idx = cmdq->current_state.idx) == -2)
 		return (CMD_RETURN_ERROR);
 
-	src = cmdq->state.s;
-	dst = cmdq->state.s2;
+	src = cmdq->current_state.s;
+	dst = cmdq->current_state.s2;
 
 	kflag = args_has(self->args, 'k');
 	dflag = args_has(self->args, 'd');

@@ -54,7 +54,7 @@ cmd_choose_list_exec(struct cmd *self, struct cmd_q *cmdq)
 	char				*template, *item, *copy, *list;
 	u_int				 idx;
 
-	if ((c = cmdq->state.c) == NULL) {
+	if ((c = cmdq->current_state.c) == NULL) {
 		cmdq_error(cmdq, "no client available");
 		return (CMD_RETURN_ERROR);
 	}
@@ -62,7 +62,7 @@ cmd_choose_list_exec(struct cmd *self, struct cmd_q *cmdq)
 	if ((list1 = args_get(args, 'l')) == NULL)
 		return (CMD_RETURN_ERROR);
 
-	if ((wl = cmdq->state.wl) == NULL)
+	if ((wl = cmdq->current_state.wl) == NULL)
 		return (CMD_RETURN_ERROR);
 
 	if (window_pane_set_mode(wl->window->active, &window_choose_mode) != 0)

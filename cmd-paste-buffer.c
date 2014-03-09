@@ -55,10 +55,10 @@ cmd_paste_buffer_exec(struct cmd *self, struct cmd_q *cmdq)
 	int			 buffer;
 	int			 pflag;
 
-	if (cmdq->state.wl == NULL)
+	if (cmdq->current_state.wl == NULL)
 		return (CMD_RETURN_ERROR);
 
-	wp = cmdq->state.wp;
+	wp = cmdq->current_state.wp;
 
 	if (!args_has(args, 'b'))
 		buffer = -1;

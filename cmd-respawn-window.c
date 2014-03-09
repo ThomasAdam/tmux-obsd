@@ -52,10 +52,10 @@ cmd_respawn_window_exec(struct cmd *self, struct cmd_q *cmdq)
 	const char		*cmd;
 	char		 	*cause;
 
-	if ((wl = cmdq->state.wl) == NULL)
+	if ((wl = cmdq->current_state.wl) == NULL)
 		return (CMD_RETURN_ERROR);
 	w = wl->window;
-	s = cmdq->state.s;
+	s = cmdq->current_state.s;
 
 	if (!args_has(self->args, 'k')) {
 		TAILQ_FOREACH(wp, &w->panes, entry) {

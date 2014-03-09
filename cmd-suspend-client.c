@@ -45,7 +45,7 @@ cmd_suspend_client_exec(unused struct cmd *self, struct cmd_q *cmdq)
 {
 	struct client	*c;
 
-	if ((c = cmdq->state.c) == NULL)
+	if ((c = cmdq->current_state.c) == NULL)
 		return (CMD_RETURN_ERROR);
 
 	tty_stop_tty(&c->tty);
