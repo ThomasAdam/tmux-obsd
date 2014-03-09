@@ -294,9 +294,9 @@ cmd_prepare(struct cmd *cmd, struct cmd_q *cmdq)
 {
 	struct args		*args = cmd->args;
 	const char		*tflag = args_get(args, 't');
-	struct cmd_state	*state = &cmdq->current_state;
+	struct cmd_state	*state = &cmdq->default_state;
 
-	cmdq->current_state.c = cmd_current_client(cmdq);
+	state->c = cmd_current_client(cmdq);
 
 	if (cmd->entry->flags & CMD_PREPARESESSION)
 		state->s = cmd_find_session(cmdq, tflag, 1);
@@ -307,8 +307,10 @@ cmd_prepare(struct cmd *cmd, struct cmd_q *cmdq)
 	if (cmd->entry->flags & CMD_PREPARECLIENT)
 		state->c = cmd_find_client(cmdq, tflag, 0);
 
-	if (cmd->entry->prepare != NULL)
+	if (cmd->entry->prepare != NULL) {
+		memcpy(&cmdq->current_state, state, sizeof(*state));
 		cmd->entry->prepare(cmd, cmdq);
+	}
 }
 
 size_t

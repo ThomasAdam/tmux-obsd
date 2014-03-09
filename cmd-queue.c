@@ -233,6 +233,7 @@ cmdq_continue(struct cmd_q *cmdq)
 	enum cmd_retval		 retval;
 	int			 empty, guard, flags;
 	char			 s[1024];
+	struct cmd_state	*default_state, *current_state;
 
 	notify_disable();
 
@@ -259,6 +260,8 @@ cmdq_continue(struct cmd_q *cmdq)
 			 * also call's that command's version.
 			 */
 			cmd_prepare(cmdq->cmd, cmdq);
+			default_state = &cmdq->default_state;
+			current_state = &cmdq->current_state;
 
 			/*
 			 * If we set no session via this or the prepare()
@@ -266,10 +269,14 @@ cmdq_continue(struct cmd_q *cmdq)
 			 * otherwise used the intended session's hooks when
 			 * running the command.
 			 */
-			if (cmdq->current_state.s != NULL)
+			hooks = &default_state->s->hooks != NULL ?
+				&default_state->s->hooks : &global_hooks;
+
+			if (cmdq->current_state.s != NULL) {
 				hooks = &cmdq->current_state.s->hooks;
-			else
-				hooks = &global_hooks;
+				log_debug("HOOKS:  Set to session hooks '%s'",
+					cmdq->current_state.s->name);
+			}
 
 			cmd_print(cmdq->cmd, s, sizeof s);
 			log_debug("cmdq %p: %s (client %d)", cmdq, s,
@@ -283,8 +290,10 @@ cmdq_continue(struct cmd_q *cmdq)
 
 			cmdq_run_hook(hooks, "before", cmdq->cmd, cmdq);
 			retval = cmdq->cmd->entry->exec(cmdq->cmd, cmdq);
-			if (retval == CMD_RETURN_ERROR)
+			if (retval == CMD_RETURN_ERROR) {
+				log_debug("HOOKS:  Command broken...");
 				break;
+			}
 			cmdq_run_hook(hooks, "after", cmdq->cmd, cmdq);
 
 			if (guard) {
