@@ -55,11 +55,11 @@ cmd_display_message_exec(struct cmd *self, struct cmd_q *cmdq)
 	size_t			 len;
 
 	if (args_has(args, 't')) {
-		wl = cmd_find_pane(cmdq, args_get(args, 't'), &s, &wp);
+		wl = cmd_find_pane(cmdq, args_get(args, 't'), &s, &wp, 0);
 		if (wl == NULL)
 			return (CMD_RETURN_ERROR);
 	} else {
-		wl = cmd_find_pane(cmdq, NULL, &s, &wp);
+		wl = cmd_find_pane(cmdq, NULL, &s, &wp, 0);
 		if (wl == NULL)
 			return (CMD_RETURN_ERROR);
 	}

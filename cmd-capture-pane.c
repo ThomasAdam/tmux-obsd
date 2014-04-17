@@ -169,7 +169,7 @@ cmd_capture_pane_exec(struct cmd *self, struct cmd_q *cmdq)
 	u_int			 limit;
 	size_t			 len;
 
-	if (cmd_find_pane(cmdq, args_get(args, 't'), NULL, &wp) == NULL)
+	if (cmd_find_pane(cmdq, args_get(args, 't'), NULL, &wp, 0) == NULL)
 		return (CMD_RETURN_ERROR);
 
 	len = 0;

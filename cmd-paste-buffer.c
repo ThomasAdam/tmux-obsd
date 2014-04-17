@@ -54,7 +54,7 @@ cmd_paste_buffer_exec(struct cmd *self, struct cmd_q *cmdq)
 	int			 buffer;
 	int			 pflag;
 
-	if (cmd_find_pane(cmdq, args_get(args, 't'), &s, &wp) == NULL)
+	if (cmd_find_pane(cmdq, args_get(args, 't'), &s, &wp, 0) == NULL)
 		return (CMD_RETURN_ERROR);
 
 	if (!args_has(args, 'b'))

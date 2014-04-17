@@ -42,7 +42,7 @@ cmd_kill_window_exec(struct cmd *self, struct cmd_q *cmdq)
 	struct winlink	*wl, *wl2, *wl3;
 	struct session	*s;
 
-	if ((wl = cmd_find_window(cmdq, args_get(args, 't'), &s)) == NULL)
+	if ((wl = cmd_find_window(cmdq, args_get(args, 't'), &s, 0)) == NULL)
 		return (CMD_RETURN_ERROR);
 
 	if (args_has(args, 'a')) {

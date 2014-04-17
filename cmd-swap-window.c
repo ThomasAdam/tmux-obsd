@@ -44,14 +44,15 @@ cmd_swap_window_exec(struct cmd *self, struct cmd_q *cmdq)
 	const char		*target_src, *target_dst;
 	struct session		*src, *dst;
 	struct session_group	*sg_src, *sg_dst;
+
 	struct winlink		*wl_src, *wl_dst;
 	struct window		*w;
 
 	target_src = args_get(args, 's');
-	if ((wl_src = cmd_find_window(cmdq, target_src, &src)) == NULL)
+	if ((wl_src = cmd_find_window(cmdq, target_src, &src, 1)) == NULL)
 		return (CMD_RETURN_ERROR);
 	target_dst = args_get(args, 't');
-	if ((wl_dst = cmd_find_window(cmdq, target_dst, &dst)) == NULL)
+	if ((wl_dst = cmd_find_window(cmdq, target_dst, &dst, 0)) == NULL)
 		return (CMD_RETURN_ERROR);
 
 	sg_src = session_group_find(src);

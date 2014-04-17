@@ -45,7 +45,7 @@ cmd_unlink_window_exec(struct cmd *self, struct cmd_q *cmdq)
 	struct session_group	*sg;
 	u_int			 references;
 
-	if ((wl = cmd_find_window(cmdq, args_get(args, 't'), &s)) == NULL)
+	if ((wl = cmd_find_window(cmdq, args_get(args, 't'), &s, 0)) == NULL)
 		return (CMD_RETURN_ERROR);
 	w = wl->window;
 

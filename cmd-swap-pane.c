@@ -52,13 +52,14 @@ enum cmd_retval
 cmd_swap_pane_exec(struct cmd *self, struct cmd_q *cmdq)
 {
 	struct args		*args = self->args;
+	struct session		*src_s, *dst_s;
 	struct winlink		*src_wl, *dst_wl;
 	struct window		*src_w, *dst_w;
 	struct window_pane	*tmp_wp, *src_wp, *dst_wp;
 	struct layout_cell	*src_lc, *dst_lc;
 	u_int			 sx, sy, xoff, yoff;
 
-	dst_wl = cmd_find_pane(cmdq, args_get(args, 't'), NULL, &dst_wp);
+	dst_wl = cmd_find_pane(cmdq, args_get(args, 't'), &dst_s, &dst_wp, 0);
 	if (dst_wl == NULL)
 		return (CMD_RETURN_ERROR);
 	dst_w = dst_wl->window;
@@ -70,18 +71,25 @@ cmd_swap_pane_exec(struct cmd *self, struct cmd_q *cmdq)
 			src_wp = TAILQ_NEXT(dst_wp, entry);
 			if (src_wp == NULL)
 				src_wp = TAILQ_FIRST(&dst_w->panes);
+			src_s = dst_s;
+			src_wl = dst_wl;
 		} else if (args_has(self->args, 'U')) {
 			src_wp = TAILQ_PREV(dst_wp, window_panes, entry);
-			if (src_wp == NULL)
-				src_wp = TAILQ_LAST(&dst_w->panes, window_panes);
+			if (src_wp == NULL) {
+				src_wp = TAILQ_LAST(&dst_w->panes,
+				    window_panes);
+			}
+			src_s = dst_s;
+			src_wl = dst_wl;
 		} else {
-			src_wl = cmd_find_pane(cmdq, NULL, NULL, &src_wp);
+			src_wl = cmd_find_pane(cmdq, NULL, &src_s, &src_wp, 1);
 			if (src_wl == NULL)
 				return (CMD_RETURN_ERROR);
 			src_w = src_wl->window;
 		}
 	} else {
-		src_wl = cmd_find_pane(cmdq, args_get(args, 's'), NULL, &src_wp);
+		src_wl = cmd_find_pane(cmdq, args_get(args, 's'), &src_s,
+		    &src_wp, 1);
 		if (src_wl == NULL)
 			return (CMD_RETURN_ERROR);
 		src_w = src_wl->window;

@@ -66,7 +66,7 @@ cmd_attach_session(struct cmd_q *cmdq, const char *tflag, int dflag, int rflag,
 		if ((s = cmd_find_session(cmdq, tflag, 1)) == NULL)
 			return (CMD_RETURN_ERROR);
 	} else if (tflag[strcspn(tflag, ":.")] != '\0') {
-		if ((wl = cmd_find_pane(cmdq, tflag, &s, &wp)) == NULL)
+		if ((wl = cmd_find_pane(cmdq, tflag, &s, &wp, 0)) == NULL)
 			return (CMD_RETURN_ERROR);
 	} else {
 		if ((s = cmd_find_session(cmdq, tflag, 1)) == NULL)

@@ -811,7 +811,8 @@ cmd_find_session(struct cmd_q *cmdq, const char *arg, int prefer_unattached)
 
 /* Find the target session and window or report an error and return NULL. */
 struct winlink *
-cmd_find_window(struct cmd_q *cmdq, const char *arg, struct session **sp)
+cmd_find_window(struct cmd_q *cmdq, const char *arg, struct session **sp,
+    int default_marked)
 {
 	struct session		*s;
 	struct winlink		*wl;
@@ -831,6 +832,11 @@ cmd_find_window(struct cmd_q *cmdq, const char *arg, struct session **sp)
 
 	/* A NULL argument means the current session and window. */
 	if (arg == NULL) {
+		if (default_marked && server_check_marked()) {
+			if (sp != NULL)
+				*sp = marked_session;
+			return (marked_winlink);
+		}
 		if (sp != NULL)
 			*sp = s;
 		return (s->curw);
@@ -1112,8 +1118,8 @@ cmd_find_index_offset(const char *winptr, struct session *s, int *ambiguous)
  * such as mysession:mywindow.0.
  */
 struct winlink *
-cmd_find_pane(struct cmd_q *cmdq,
-    const char *arg, struct session **sp, struct window_pane **wpp)
+cmd_find_pane(struct cmd_q *cmdq, const char *arg, struct session **sp,
+    struct window_pane **wpp, int default_marked)
 {
 	struct session	*s;
 	struct winlink	*wl;
@@ -1131,6 +1137,12 @@ cmd_find_pane(struct cmd_q *cmdq,
 
 	/* A NULL argument means the current session, window and pane. */
 	if (arg == NULL) {
+		if (default_marked && server_check_marked()) {
+			*wpp = marked_window_pane;
+			if (sp != NULL)
+				*sp = marked_session;
+			return (marked_winlink);
+		}
 		*wpp = s->curw->window->active;
 		return (s->curw);
 	}
@@ -1152,7 +1164,7 @@ cmd_find_pane(struct cmd_q *cmdq,
 	winptr[period - arg] = '\0';
 	if (*winptr == '\0')
 		wl = s->curw;
-	else if ((wl = cmd_find_window(cmdq, winptr, sp)) == NULL)
+	else if ((wl = cmd_find_window(cmdq, winptr, sp, 0)) == NULL)
 		goto error;
 
 	/* Find the pane section and look it up. */
@@ -1201,7 +1213,7 @@ lookup_window:
 		return (s->curw);
 
 	/* Try as a window and use the active pane. */
-	if ((wl = cmd_find_window(cmdq, arg, sp)) != NULL)
+	if ((wl = cmd_find_window(cmdq, arg, sp, 0)) != NULL)
 		*wpp = wl->window->active;
 	return (wl);
 

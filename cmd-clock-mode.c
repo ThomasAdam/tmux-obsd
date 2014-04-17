@@ -41,7 +41,7 @@ cmd_clock_mode_exec(struct cmd *self, struct cmd_q *cmdq)
 	struct args		*args = self->args;
 	struct window_pane	*wp;
 
-	if (cmd_find_pane(cmdq, args_get(args, 't'), NULL, &wp) == NULL)
+	if (cmd_find_pane(cmdq, args_get(args, 't'), NULL, &wp, 0) == NULL)
 		return (CMD_RETURN_ERROR);
 
 	window_pane_set_mode(wp, &window_clock_mode);

@@ -50,7 +50,7 @@ cmd_copy_mode_exec(struct cmd *self, struct cmd_q *cmdq)
 	struct args		*args = self->args;
 	struct window_pane	*wp;
 
-	if (cmd_find_pane(cmdq, args_get(args, 't'), NULL, &wp) == NULL)
+	if (cmd_find_pane(cmdq, args_get(args, 't'), NULL, &wp, 0) == NULL)
 		return (CMD_RETURN_ERROR);
 
 	if (wp->mode != &window_copy_mode) {

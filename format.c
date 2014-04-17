@@ -494,7 +494,6 @@ format_winlink(struct format_tree *ft, struct session *s, struct winlink *wl)
 	format_add(ft, "window_silence_flag", "%u",
 	    !!(wl->flags & WINLINK_SILENCE));
 
-
 	free(flags);
 }
 

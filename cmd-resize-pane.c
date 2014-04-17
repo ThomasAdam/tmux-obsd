@@ -96,7 +96,8 @@ cmd_resize_pane_exec(struct cmd *self, struct cmd_q *cmdq)
 	u_int			 adjust;
 	int			 x, y;
 
-	if ((wl = cmd_find_pane(cmdq, args_get(args, 't'), NULL, &wp)) == NULL)
+	wl = cmd_find_pane(cmdq, args_get(args, 't'), NULL, &wp, 0);
+	if (wl == NULL)
 		return (CMD_RETURN_ERROR);
 	w = wl->window;
 

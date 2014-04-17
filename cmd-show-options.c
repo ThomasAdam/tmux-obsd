@@ -71,7 +71,8 @@ cmd_show_options_exec(struct cmd *self, struct cmd_q *cmdq)
 		if (args_has(self->args, 'g'))
 			oo = &global_w_options;
 		else {
-			wl = cmd_find_window(cmdq, args_get(args, 't'), NULL);
+			wl = cmd_find_window(cmdq, args_get(args, 't'), NULL,
+			    0);
 			if (wl == NULL)
 				return (CMD_RETURN_ERROR);
 			oo = &wl->window->options;

@@ -55,7 +55,7 @@ cmd_new_window_exec(struct cmd *self, struct cmd_q *cmdq)
 	struct format_tree	*ft;
 
 	if (args_has(args, 'a')) {
-		wl = cmd_find_window(cmdq, args_get(args, 't'), &s);
+		wl = cmd_find_window(cmdq, args_get(args, 't'), &s, 0);
 		if (wl == NULL)
 			return (CMD_RETURN_ERROR);
 		idx = wl->idx + 1;

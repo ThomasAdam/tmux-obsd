@@ -52,7 +52,7 @@ cmd_respawn_pane_exec(struct cmd *self, struct cmd_q *cmdq)
 	char			*cause;
 	u_int			 idx;
 
-	if ((wl = cmd_find_pane(cmdq, args_get(args, 't'), &s, &wp)) == NULL)
+	if ((wl = cmd_find_pane(cmdq, args_get(args, 't'), &s, &wp, 0)) == NULL)
 		return (CMD_RETURN_ERROR);
 	w = wl->window;
 

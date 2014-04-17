@@ -44,7 +44,7 @@ cmd_rename_window_exec(struct cmd *self, struct cmd_q *cmdq)
 	struct session	*s;
 	struct winlink	*wl;
 
-	if ((wl = cmd_find_window(cmdq, args_get(args, 't'), &s)) == NULL)
+	if ((wl = cmd_find_window(cmdq, args_get(args, 't'), &s, 0)) == NULL)
 		return (CMD_RETURN_ERROR);
 
 	window_set_name(wl->window, args->argv[0]);

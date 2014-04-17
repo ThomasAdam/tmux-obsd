@@ -70,7 +70,7 @@ cmd_split_window_exec(struct cmd *self, struct cmd_q *cmdq)
 	struct client		*c;
 	struct format_tree	*ft;
 
-	if ((wl = cmd_find_pane(cmdq, args_get(args, 't'), &s, &wp)) == NULL)
+	if ((wl = cmd_find_pane(cmdq, args_get(args, 't'), &s, &wp, 0)) == NULL)
 		return (CMD_RETURN_ERROR);
 	w = wl->window;
 	server_unzoom_window(w);

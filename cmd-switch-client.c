@@ -103,7 +103,8 @@ cmd_switch_client_exec(struct cmd *self, struct cmd_q *cmdq)
 			if ((s = cmd_find_session(cmdq, tflag, 1)) == NULL)
 				return (CMD_RETURN_ERROR);
 		} else if (tflag[strcspn(tflag, ":.")] != '\0') {
-			if ((wl = cmd_find_pane(cmdq, tflag, &s, &wp)) == NULL)
+			wl = cmd_find_pane(cmdq, tflag, &s, &wp, 0);
+			if (wl == NULL)
 				return (CMD_RETURN_ERROR);
 		} else {
 			if ((s = cmd_find_session(cmdq, tflag, 1)) == NULL)

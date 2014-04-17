@@ -56,7 +56,7 @@ cmd_move_window_exec(struct cmd *self, struct cmd_q *cmdq)
 		return (CMD_RETURN_NORMAL);
 	}
 
-	if ((wl = cmd_find_window(cmdq, args_get(args, 's'), &src)) == NULL)
+	if ((wl = cmd_find_window(cmdq, args_get(args, 's'), &src, 0)) == NULL)
 		return (CMD_RETURN_ERROR);
 	if ((idx = cmd_find_index(cmdq, args_get(args, 't'), &dst)) == -2)
 		return (CMD_RETURN_ERROR);

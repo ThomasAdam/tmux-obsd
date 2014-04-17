@@ -59,7 +59,7 @@ cmd_list_panes_exec(struct cmd *self, struct cmd_q *cmdq)
 			return (CMD_RETURN_ERROR);
 		cmd_list_panes_session(self, s, cmdq, 1);
 	} else {
-		wl = cmd_find_window(cmdq, args_get(args, 't'), &s);
+		wl = cmd_find_window(cmdq, args_get(args, 't'), &s, 0);
 		if (wl == NULL)
 			return (CMD_RETURN_ERROR);
 		cmd_list_panes_window(self, s, wl, cmdq, 0);

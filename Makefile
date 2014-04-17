@@ -128,7 +128,7 @@ SRCS=	arguments.c \
 CDIAGFLAGS+= -Wno-long-long -Wall -W -Wnested-externs -Wformat=2
 CDIAGFLAGS+= -Wmissing-prototypes -Wstrict-prototypes -Wmissing-declarations
 CDIAGFLAGS+= -Wwrite-strings -Wshadow -Wpointer-arith -Wsign-compare
-CDIAGFLAGS+= -Wundef -Wbad-function-cast -Winline -Wcast-align
+CDIAGFLAGS+= -Wundef -Wbad-function-cast -Winline -Wcast-align -ggdb
 
 LDADD=  -lutil -lcurses -levent
 DPADD=  ${LIBUTIL} ${LIBCURSES} ${LIBEVENT}

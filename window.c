@@ -390,6 +390,18 @@ window_resize(struct window *w, u_int sx, u_int sy)
 	w->sy = sy;
 }
 
+int
+window_has_pane(struct window *w, struct window_pane *wp)
+{
+	struct window_pane	*wp1;
+
+	TAILQ_FOREACH(wp1, &w->panes, entry) {
+		if (wp1 == wp)
+			return (1);
+	}
+	return (0);
+}
+
 /*
  * Restore previously active pane when changing from wp to nextwp. The intended
  * pane is in nextwp and it returns the previously focused pane.
@@ -691,7 +703,7 @@ window_destroy_panes(struct window *w)
 char *
 window_printable_flags(struct session *s, struct winlink *wl)
 {
-	char	flags[BUFSIZ];
+	char	flags[32];
 	int	pos;
 
 	pos = 0;
@@ -709,6 +721,8 @@ window_printable_flags(struct session *s, struct winlink *wl)
 		flags[pos++] = '-';
 	if (wl->window->flags & WINDOW_ZOOMED)
 		flags[pos++] = 'Z';
+	if (server_check_marked() && wl == marked_winlink)
+		flags[pos++] = 'M';
 	if (pos == 0)
 		flags[pos++] = ' ';
 	flags[pos] = '\0';

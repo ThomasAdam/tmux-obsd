@@ -85,14 +85,14 @@ join_pane(struct cmd *self, struct cmd_q *cmdq, int not_same_window)
 	enum layout_type	 type;
 	struct layout_cell	*lc;
 
-	dst_wl = cmd_find_pane(cmdq, args_get(args, 't'), &dst_s, &dst_wp);
+	dst_wl = cmd_find_pane(cmdq, args_get(args, 't'), &dst_s, &dst_wp, 0);
 	if (dst_wl == NULL)
 		return (CMD_RETURN_ERROR);
 	dst_w = dst_wl->window;
 	dst_idx = dst_wl->idx;
 	server_unzoom_window(dst_w);
 
-	src_wl = cmd_find_pane(cmdq, args_get(args, 's'), NULL, &src_wp);
+	src_wl = cmd_find_pane(cmdq, args_get(args, 's'), NULL, &src_wp, 1);
 	if (src_wl == NULL)
 		return (CMD_RETURN_ERROR);
 	src_w = src_wl->window;

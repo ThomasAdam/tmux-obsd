@@ -53,7 +53,7 @@ cmd_break_pane_exec(struct cmd *self, struct cmd_q *cmdq)
 	const char		*template;
 	char			*cp;
 
-	if ((wl = cmd_find_pane(cmdq, args_get(args, 't'), &s, &wp)) == NULL)
+	if ((wl = cmd_find_pane(cmdq, args_get(args, 't'), &s, &wp, 0)) == NULL)
 		return (CMD_RETURN_ERROR);
 
 	if (window_count_panes(wl->window) == 1) {

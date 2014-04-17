@@ -144,7 +144,7 @@ cmd_find_window_exec(struct cmd *self, struct cmd_q *cmdq)
 	}
 	s = c->session;
 
-	if ((wl = cmd_find_window(cmdq, args_get(args, 't'), NULL)) == NULL)
+	if ((wl = cmd_find_window(cmdq, args_get(args, 't'), NULL, 0)) == NULL)
 		return (CMD_RETURN_ERROR);
 
 	if ((template = args_get(args, 'F')) == NULL)

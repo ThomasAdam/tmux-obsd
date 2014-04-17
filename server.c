@@ -53,6 +53,11 @@ struct event	 server_ev_second;
 
 struct paste_stack global_buffers;
 
+struct session		*marked_session;
+struct winlink		*marked_winlink;
+struct window		*marked_window;
+struct window_pane	*marked_window_pane;
+
 int		 server_create_socket(void);
 void		 server_loop(void);
 int		 server_should_shutdown(void);
@@ -66,6 +71,52 @@ void		 server_child_stopped(pid_t, int);
 void		 server_second_callback(int, short, void *);
 void		 server_lock_server(void);
 void		 server_lock_sessions(void);
+
+/* Set marked pane. */
+void
+server_set_marked(struct session *s, struct winlink *wl, struct window_pane *wp)
+{
+	marked_session = s;
+	marked_winlink = wl;
+	marked_window = wl->window;
+	marked_window_pane = wp;
+}
+
+/* Clear marked pane. */
+void
+server_clear_marked(void)
+{
+	marked_session = NULL;
+	marked_winlink = NULL;
+	marked_window = NULL;
+	marked_window_pane = NULL;
+}
+
+/* Is this the marked pane? */
+int
+server_is_marked(struct session *s, struct winlink *wl, struct window_pane *wp)
+{
+	if (s == NULL || wl == NULL || wp == NULL)
+		return (0);
+	if (marked_session != s || marked_winlink != wl)
+		return (0);
+	if (marked_window_pane != wp)
+		return (0);
+	return (server_check_marked());
+}
+
+/* Check if the marked pane is still valid. */
+int
+server_check_marked(void)
+{
+	if (!session_alive(marked_session))
+		return (0);
+	if (session_has(marked_session, marked_window) != marked_winlink)
+		return (0);
+	if (!window_has_pane(marked_window, marked_window_pane))
+		return (0);
+	return (window_pane_visible(marked_window_pane));
+}
 
 /* Create server socket. */
 int

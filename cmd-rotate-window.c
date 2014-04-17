@@ -54,7 +54,7 @@ cmd_rotate_window_exec(struct cmd *self, struct cmd_q *cmdq)
 	struct layout_cell	*lc;
 	u_int			 sx, sy, xoff, yoff;
 
-	if ((wl = cmd_find_window(cmdq, args_get(args, 't'), NULL)) == NULL)
+	if ((wl = cmd_find_window(cmdq, args_get(args, 't'), NULL, 0)) == NULL)
 		return (CMD_RETURN_ERROR);
 	w = wl->window;
 

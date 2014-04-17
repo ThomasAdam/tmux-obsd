@@ -42,7 +42,7 @@ cmd_clear_history_exec(struct cmd *self, struct cmd_q *cmdq)
 	struct window_pane	*wp;
 	struct grid		*gd;
 
-	if (cmd_find_pane(cmdq, args_get(args, 't'), NULL, &wp) == NULL)
+	if (cmd_find_pane(cmdq, args_get(args, 't'), NULL, &wp, 0) == NULL)
 		return (CMD_RETURN_ERROR);
 	gd = wp->base.grid;
 

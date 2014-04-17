@@ -309,6 +309,11 @@ const struct options_table_entry session_options_table[] = {
 	  .default_str = "default"
 	},
 
+	{ .name = "pane-marked-border-style",
+	  .type = OPTIONS_TABLE_STYLE,
+	  .default_str = "fg=yellow"
+	},
+
 	{ .name = "prefix",
 	  .type = OPTIONS_TABLE_KEY,
 	  .default_num = '\002',

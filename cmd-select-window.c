@@ -122,7 +122,7 @@ cmd_select_window_exec(struct cmd *self, struct cmd_q *cmdq)
 
 		server_redraw_session(s);
 	} else {
-		wl = cmd_find_window(cmdq, args_get(args, 't'), &s);
+		wl = cmd_find_window(cmdq, args_get(args, 't'), &s, 0);
 		if (wl == NULL)
 			return (CMD_RETURN_ERROR);
 

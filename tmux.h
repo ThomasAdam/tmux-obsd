@@ -1744,11 +1744,11 @@ struct client	*cmd_current_client(struct cmd_q *);
 struct client	*cmd_find_client(struct cmd_q *, const char *, int);
 struct session	*cmd_find_session(struct cmd_q *, const char *, int);
 struct winlink	*cmd_find_window(struct cmd_q *, const char *,
-		     struct session **);
+		     struct session **, int);
 int		 cmd_find_index(struct cmd_q *, const char *,
 		     struct session **);
 struct winlink	*cmd_find_pane(struct cmd_q *, const char *, struct session **,
-		     struct window_pane **);
+		     struct window_pane **, int);
 char		*cmd_template_replace(const char *, const char *, int);
 struct window	*cmd_lookup_windowid(const char *);
 struct window_pane *cmd_lookup_paneid(const char *);
@@ -1887,6 +1887,15 @@ const char *key_string_lookup_key(int);
 extern struct clients clients;
 extern struct clients dead_clients;
 extern struct paste_stack global_buffers;
+extern struct session *marked_session;
+extern struct winlink *marked_winlink;
+extern struct window_pane *marked_window_pane;
+void	 server_set_marked(struct session *, struct winlink *,
+	     struct window_pane *);
+void	 server_clear_marked(void);
+int	 server_is_marked(struct session *, struct winlink *,
+	     struct window_pane *);
+int	 server_check_marked(void);
 int	 server_start(int, char *);
 void	 server_update_socket(void);
 void	 server_add_accept(int);
@@ -2139,6 +2148,7 @@ struct window_pane *window_find_string(struct window *, const char *);
 void		 window_set_active_pane(struct window *, struct window_pane *);
 struct window_pane *window_add_pane(struct window *, u_int);
 void		 window_resize(struct window *, u_int, u_int);
+int		 window_has_pane(struct window *, struct window_pane *);
 int		 window_zoom(struct window_pane *);
 int		 window_unzoom(struct window *);
 void		 window_remove_pane(struct window *, struct window_pane *);

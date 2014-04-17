@@ -54,7 +54,7 @@ cmd_pipe_pane_exec(struct cmd *self, struct cmd_q *cmdq)
 	char			*command;
 	int			 old_fd, pipe_fd[2], null_fd;
 
-	if (cmd_find_pane(cmdq, args_get(args, 't'), NULL, &wp) == NULL)
+	if (cmd_find_pane(cmdq, args_get(args, 't'), NULL, &wp, 0) == NULL)
 		return (CMD_RETURN_ERROR);
 	c = cmd_find_client(cmdq, NULL, 1);
 

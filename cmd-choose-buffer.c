@@ -59,7 +59,7 @@ cmd_choose_buffer_exec(struct cmd *self, struct cmd_q *cmdq)
 	if ((template = args_get(args, 'F')) == NULL)
 		template = CHOOSE_BUFFER_TEMPLATE;
 
-	if ((wl = cmd_find_window(cmdq, args_get(args, 't'), NULL)) == NULL)
+	if ((wl = cmd_find_window(cmdq, args_get(args, 't'), NULL, 0)) == NULL)
 		return (CMD_RETURN_ERROR);
 	utf8flag = options_get_number(&wl->window->options, "utf8");
 

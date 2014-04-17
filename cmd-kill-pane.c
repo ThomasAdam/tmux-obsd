@@ -44,7 +44,8 @@ cmd_kill_pane_exec(struct cmd *self, struct cmd_q *cmdq)
 	struct winlink		*wl;
 	struct window_pane	*loopwp, *tmpwp, *wp;
 
-	if ((wl = cmd_find_pane(cmdq, args_get(args, 't'), NULL, &wp)) == NULL)
+	wl = cmd_find_pane(cmdq, args_get(args, 't'), NULL, &wp, 0);
+	if (wl == NULL)
 		return (CMD_RETURN_ERROR);
 	server_unzoom_window(wl->window);
 
