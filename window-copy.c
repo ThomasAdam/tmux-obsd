@@ -2732,16 +2732,20 @@ window_copy_cmd_refresh_from_pane(struct window_copy_cmd_state *cs)
 	struct window_mode_entry	*wme = cs->wme;
 	struct window_pane		*wp = wme->swp;
 	struct window_copy_mode_data	*data = wme->data;
+	u_int				 oy_from_top;
 
 	if (data->viewmode)
 		return (WINDOW_COPY_CMD_NOTHING);
+	oy_from_top = screen_hsize(data->backing) - data->oy;
 
 	screen_free(data->backing);
 	free(data->backing);
 	data->backing = window_copy_clone_screen(&wp->base, &data->screen, NULL,
 	    NULL, wme->swp != wme->wp);
 
-	if (data->oy > screen_hsize(data->backing)) {
+	if (oy_from_top <= screen_hsize(data->backing))
+		data->oy = screen_hsize(data->backing) - oy_from_top;
+	else {
 		data->cy = 0;
 		data->oy = screen_hsize(data->backing);
 	}
