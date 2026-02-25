@@ -7449,7 +7449,7 @@ is
 the contents are read from stdin.
 .Tg pasteb
 .It Xo Ic paste-buffer
-.Op Fl dpr
+.Op Fl dprS
 .Op Fl b Ar buffer-name
 .Op Fl s Ar separator
 .Op Fl t Ar target-pane
@@ -7457,9 +7457,14 @@ the contents are read from stdin.
 .D1 Pq alias: Ic pasteb
 Insert the contents of a paste buffer into the specified pane.
 If not specified, paste into the current one.
+By default, control characters are sanitized with
+.Xr vis 3 ;
+.Fl S
+disables this.
 With
 .Fl d ,
 also delete the paste buffer.
+.Pp
 When output, any linefeed (LF) characters in the paste buffer are replaced with
 a separator, by default carriage return (CR).
 A custom separator may be specified using the
