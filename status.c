@@ -1,4 +1,4 @@
-/* $OpenBSD: status.c,v 1.259 2026/04/03 10:13:20 nicm Exp $ */
+/* $OpenBSD: status.c,v 1.260 2026/04/13 09:33:09 nicm Exp $ */
 
 /*
  * Copyright (c) 2007 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -728,7 +728,7 @@ status_prompt_set(struct client *c, struct cmd_find_state *fs,
 	c->prompt_type = prompt_type;
 	c->prompt_mode = PROMPT_ENTRY;
 
-	if (~flags & PROMPT_INCREMENTAL)
+	if ((~flags & PROMPT_INCREMENTAL) && (~flags & PROMPT_NOFREEZE))
 		c->tty.flags |= TTY_FREEZE;
 	c->flags |= CLIENT_REDRAWSTATUS;
 
