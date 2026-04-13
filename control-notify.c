@@ -1,4 +1,4 @@
-/* $OpenBSD: control-notify.c,v 1.32 2026/02/16 08:45:38 nicm Exp $ */
+/* $OpenBSD: control-notify.c,v 1.33 2026/04/13 09:35:20 nicm Exp $ */
 
 /*
  * Copyright (c) 2012 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -24,7 +24,8 @@
 #include "tmux.h"
 
 #define CONTROL_SHOULD_NOTIFY_CLIENT(c) \
-	((c) != NULL && ((c)->flags & CLIENT_CONTROL))
+	((c) != NULL && ((c)->flags & CLIENT_CONTROL) && \
+	 (c)->control_state != NULL)
 
 void
 control_notify_pane_mode_changed(int pane)
