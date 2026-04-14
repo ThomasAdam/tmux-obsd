@@ -1,4 +1,4 @@
-/* $OpenBSD: key-bindings.c,v 1.163 2026/03/03 12:26:14 nicm Exp $ */
+/* $OpenBSD: key-bindings.c,v 1.164 2026/04/14 07:28:57 nicm Exp $ */
 
 /*
  * Copyright (c) 2007 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -29,7 +29,7 @@
 	" 'Previous' 'p' {switch-client -p}" \
 	" ''" \
 	" 'Renumber' 'N' {move-window -r}" \
-	" 'Rename' 'n' {command-prompt -I \"#S\" {rename-session -- '%%'}}" \
+	" 'Rename' 'r' {command-prompt -I \"#S\" {rename-session -- '%%'}}" \
 	" ''" \
 	" 'New Session' 's' {new-session}" \
 	" 'New Window' 'w' {new-window}"
