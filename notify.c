@@ -1,4 +1,4 @@
-/* $OpenBSD: notify.c,v 1.44 2023/06/30 13:19:32 nicm Exp $ */
+/* $OpenBSD: notify.c,v 1.45 2026/04/14 07:26:45 nicm Exp $ */
 
 /*
  * Copyright (c) 2012 George Nachman <tmux@georgester.com>
@@ -209,8 +209,12 @@ notify_add(const char *name, struct cmd_find_state *fs, struct client *c,
 		format_add(ne->formats, "hook_window", "@%u", w->id);
 		format_add(ne->formats, "hook_window_name", "%s", w->name);
 	}
-	if (wp != NULL)
+	if (wp != NULL) {
 		format_add(ne->formats, "hook_pane", "%%%d", wp->id);
+		format_add(ne->formats, "hook_window", "@%u", wp->window->id);
+		format_add(ne->formats, "hook_window_name", "%s",
+		    wp->window->name);
+	}
 	format_log_debug(ne->formats, __func__);
 
 	if (c != NULL)
