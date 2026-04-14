@@ -1,4 +1,4 @@
-/* $OpenBSD: format.c,v 1.357 2026/04/05 13:24:02 nicm Exp $ */
+/* $OpenBSD: format.c,v 1.358 2026/04/14 07:24:23 nicm Exp $ */
 
 /*
  * Copyright (c) 2011 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -89,6 +89,9 @@ format_job_cmp(struct format_job *fj1, struct format_job *fj2)
 
 /* Maimum repeat size. */
 #define FORMAT_MAX_REPEAT 10000
+
+/* Maimum precision. */
+#define FORMAT_MAX_PRECISION 100
 
 /* Format modifiers. */
 #define FORMAT_TIMESTRING 0x1
@@ -4850,7 +4853,8 @@ format_replace_expression(struct format_modifier *mexp,
 
 	/* The third argument may be precision. */
 	if (argc >= 3) {
-		prec = strtonum(mexp->argv[2], INT_MIN + 1, INT_MAX, &errstr);
+		prec = strtonum(mexp->argv[2], -FORMAT_MAX_PRECISION,
+		    FORMAT_MAX_PRECISION, &errstr);
 		if (errstr != NULL) {
 			format_log(es, "expression precision %s: %s", errstr,
 			    mexp->argv[2]);
