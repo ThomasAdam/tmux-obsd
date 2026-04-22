@@ -1,4 +1,4 @@
-/* $OpenBSD: tty.c,v 1.458 2026/03/23 08:48:32 nicm Exp $ */
+/* $OpenBSD: tty.c,v 1.459 2026/04/22 07:25:17 nicm Exp $ */
 
 /*
  * Copyright (c) 2007 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -2930,4 +2930,11 @@ tty_clipboard_query(struct tty *tty)
 		tty->flags |= TTY_OSC52QUERY;
 		evtimer_add(&tty->clipboard_timer, &tv);
 	}
+}
+
+void
+tty_set_progress_bar(struct tty *tty, struct progress_bar *pb)
+{
+	if (tty_term_has(tty->term, TTYC_SPB))
+		tty_putcode_ii(tty, TTYC_SPB, pb->state, pb->progress);
 }

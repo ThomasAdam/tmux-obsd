@@ -1,4 +1,4 @@
-/* $OpenBSD: tmux.h,v 1.1307 2026/04/22 07:10:16 nicm Exp $ */
+/* $OpenBSD: tmux.h,v 1.1308 2026/04/22 07:25:17 nicm Exp $ */
 
 /*
  * Copyright (c) 2007 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -629,6 +629,7 @@ enum tty_code_code {
 	TTYC_SMUL,
 	TTYC_SMULX,
 	TTYC_SMXX,
+	TTYC_SPB,
 	TTYC_SXL,
 	TTYC_SS,
 	TTYC_SWD,
@@ -1982,6 +1983,7 @@ struct client {
 	char			*title;
 	char			*path;
 	const char		*cwd;
+	struct progress_bar	 progress_bar;
 
 	char			*term_name;
 	int			 term_features;
@@ -2621,6 +2623,7 @@ void	tty_repeat_requests(struct tty *, int);
 void	tty_stop_tty(struct tty *);
 void	tty_set_title(struct tty *, const char *);
 void	tty_set_path(struct tty *, const char *);
+void	tty_set_progress_bar(struct tty *, struct progress_bar *);
 void	tty_default_attributes(struct tty *, const struct grid_cell *,
 	    struct colour_palette *, u_int, struct hyperlinks *);
 void	tty_update_mode(struct tty *, int, struct screen *);
