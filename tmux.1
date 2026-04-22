@@ -1,4 +1,4 @@
-.\" $OpenBSD: tmux.1,v 1.1048 2026/04/13 09:33:09 nicm Exp $
+.\" $OpenBSD: tmux.1,v 1.1049 2026/04/22 06:58:59 nicm Exp $
 .\"
 .\" Copyright (c) 2007 Nicholas Marriott <nicholas.marriott@gmail.com>
 .\"
@@ -14,7 +14,7 @@
 .\" IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING
 .\" OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 .\"
-.Dd $Mdocdate: April 13 2026 $
+.Dd $Mdocdate: April 22 2026 $
 .Dt TMUX 1
 .Os
 .Sh NAME
@@ -7265,7 +7265,6 @@ Display a popup running
 when omitted) on
 .Ar target\-client .
 A popup is a rectangular box drawn over the top of any panes.
-Panes are not updated while a popup is present.
 If the command is run inside an existing popup, that popup is modified.
 Only the
 .Fl b ,
