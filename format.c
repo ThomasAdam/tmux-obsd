@@ -1,4 +1,4 @@
-/* $OpenBSD: format.c,v 1.360 2026/04/22 07:05:03 nicm Exp $ */
+/* $OpenBSD: format.c,v 1.361 2026/04/22 07:10:16 nicm Exp $ */
 
 /*
  * Copyright (c) 2011 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -5235,7 +5235,7 @@ format_replace(struct format_expand_state *es, const char *key, size_t keylen,
 			value = format_search(search, wp, new);
 		}
 		free(new);
-    } else if (modifiers & FORMAT_REPEAT) {
+	} else if (modifiers & FORMAT_REPEAT) {
 		/* Repeat multiple times. */
 		if (format_choose(es, copy, &left, &right, 1) != 0) {
 			format_log(es, "repeat syntax error: %s", copy);
@@ -5254,7 +5254,7 @@ format_replace(struct format_expand_state *es, const char *key, size_t keylen,
 		}
 		free(right);
 		free(left);
-    } else if (modifiers & FORMAT_NOT) {
+	} else if (modifiers & FORMAT_NOT) {
 		value = format_bool_op_1(es, copy, 1);
 	} else if (modifiers & FORMAT_NOT_NOT) {
 		value = format_bool_op_1(es, copy, 0);

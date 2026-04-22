@@ -1,4 +1,4 @@
-/* $OpenBSD: window.c,v 1.313 2026/04/04 16:40:27 nicm Exp $ */
+/* $OpenBSD: window.c,v 1.314 2026/04/22 07:10:16 nicm Exp $ */
 
 /*
  * Copyright (c) 2007 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -408,9 +408,14 @@ window_remove_ref(struct window *w, const char *from)
 void
 window_set_name(struct window *w, const char *new_name)
 {
-	free(w->name);
-	utf8_stravis(&w->name, new_name, VIS_OCTAL|VIS_CSTYLE|VIS_TAB|VIS_NL);
-	notify_window("window-renamed", w);
+	char	*name;
+
+	name = clean_name(new_name, "#");
+	if (name != NULL) {
+		free(w->name);
+		utf8_stravis(&w->name, new_name, VIS_OCTAL|VIS_CSTYLE|VIS_TAB|VIS_NL);
+		notify_window("window-renamed", w);
+	}
 }
 
 void

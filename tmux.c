@@ -1,4 +1,4 @@
-/* $OpenBSD: tmux.c,v 1.216 2025/10/28 10:51:30 nicm Exp $ */
+/* $OpenBSD: tmux.c,v 1.217 2026/04/22 07:10:16 nicm Exp $ */
 
 /*
  * Copyright (c) 2007 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -34,6 +34,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <util.h>
+#include <vis.h>
 
 #include "tmux.h"
 
@@ -283,6 +284,23 @@ get_timer(void)
 	if (clock_gettime(CLOCK_MONOTONIC, &ts) != 0)
 		clock_gettime(CLOCK_REALTIME, &ts);
 	return ((ts.tv_sec * 1000ULL) + (ts.tv_nsec / 1000000ULL));
+}
+
+char *
+clean_name(const char *name, const char* forbid)
+{
+	char	*copy, *cp, *new_name;
+
+	if (*name == '\0' || !utf8_isvalid(name))
+		return (NULL);
+	copy = xstrdup(name);
+	for (cp = copy; *cp != '\0'; cp++) {
+		if (strchr(forbid, *cp) != NULL)
+			*cp = '_';
+	}
+	utf8_stravis(&new_name, copy, VIS_OCTAL|VIS_CSTYLE|VIS_TAB|VIS_NL);
+	free(copy);
+	return (new_name);
 }
 
 const char *

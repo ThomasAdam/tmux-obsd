@@ -1,4 +1,4 @@
-/* $OpenBSD: names.c,v 1.45 2021/08/20 17:50:42 nicm Exp $ */
+/* $OpenBSD: names.c,v 1.46 2026/04/22 07:10:16 nicm Exp $ */
 
 /*
  * Copyright (c) 2009 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -166,7 +166,9 @@ parse_window_name(const char *in)
 
 	if (*name == '/')
 		name = basename(name);
-	name = xstrdup(name);
+	name = clean_name(name, "#");
 	free(copy);
+	if (name == NULL)
+		return (xstrdup(""));
 	return (name);
 }

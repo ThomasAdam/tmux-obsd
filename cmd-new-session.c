@@ -1,4 +1,4 @@
-/* $OpenBSD: cmd-new-session.c,v 1.148 2026/03/04 08:16:47 nicm Exp $ */
+/* $OpenBSD: cmd-new-session.c,v 1.149 2026/04/22 07:10:16 nicm Exp $ */
 
 /*
  * Copyright (c) 2007 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -102,7 +102,7 @@ cmd_new_session_exec(struct cmd *self, struct cmdq_item *item)
 	tmp = args_get(args, 's');
 	if (tmp != NULL) {
 		name = format_single(item, tmp, c, NULL, NULL, NULL);
-		newname = session_check_name(name);
+		newname = clean_name(name, "#:.");
 		if (newname == NULL) {
 			cmdq_error(item, "invalid session: %s", name);
 			free(name);
@@ -142,7 +142,7 @@ cmd_new_session_exec(struct cmd *self, struct cmdq_item *item)
 		else if (groupwith != NULL)
 			prefix = xstrdup(groupwith->name);
 		else {
-			prefix = session_check_name(group);
+			prefix = clean_name(group, "#:.");
 			if (prefix == NULL) {
 				cmdq_error(item, "invalid session group: %s",
 				    group);

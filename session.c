@@ -1,4 +1,4 @@
-/* $OpenBSD: session.c,v 1.102 2026/02/02 10:08:30 nicm Exp $ */
+/* $OpenBSD: session.c,v 1.103 2026/04/22 07:10:16 nicm Exp $ */
 
 /*
  * Copyright (c) 2007 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -229,24 +229,6 @@ session_destroy(struct session *s, int notify, const char *from)
 	free((void *)s->cwd);
 
 	session_remove_ref(s, __func__);
-}
-
-/* Sanitize session name. */
-char *
-session_check_name(const char *name)
-{
-	char	*copy, *cp, *new_name;
-
-	if (*name == '\0')
-		return (NULL);
-	copy = xstrdup(name);
-	for (cp = copy; *cp != '\0'; cp++) {
-		if (*cp == ':' || *cp == '.')
-			*cp = '_';
-	}
-	utf8_stravis(&new_name, copy, VIS_OCTAL|VIS_CSTYLE|VIS_TAB|VIS_NL);
-	free(copy);
-	return (new_name);
 }
 
 /* Lock session if it has timed out. */
