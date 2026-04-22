@@ -1,4 +1,4 @@
-/* $OpenBSD: window-copy.c,v 1.393 2026/04/02 08:37:14 nicm Exp $ */
+/* $OpenBSD: window-copy.c,v 1.394 2026/04/22 07:03:06 nicm Exp $ */
 
 /*
  * Copyright (c) 2007 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -463,8 +463,10 @@ window_copy_init(struct window_mode_entry *wme,
 	data->scroll_exit = args_has(args, 'e');
 	data->hide_position = args_has(args, 'H');
 
-	if (base->hyperlinks != NULL)
+	if (base->hyperlinks != NULL) {
+		hyperlinks_free(data->screen.hyperlinks);
 		data->screen.hyperlinks = hyperlinks_copy(base->hyperlinks);
+	}
 	data->screen.cx = data->cx;
 	data->screen.cy = data->cy;
 	data->mx = data->cx;
