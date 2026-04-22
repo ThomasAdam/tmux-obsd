@@ -1,4 +1,4 @@
-/* $OpenBSD: options-table.c,v 1.207 2026/04/14 07:16:02 nicm Exp $ */
+/* $OpenBSD: options-table.c,v 1.208 2026/04/22 07:13:26 nicm Exp $ */
 
 /*
  * Copyright (c) 2011 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -1305,7 +1305,14 @@ const struct options_table_entry options_table[] = {
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW|OPTIONS_TABLE_PANE,
 	  .default_str = "#{?pane_active,#[reverse],}#{pane_index}#[default] "
-			 "\"#{pane_title}\"",
+			 "\"#{pane_title}\""
+			 "#{?#{mouse},"
+				"#[align=right]"
+				"#[range=control|8]["
+					"#{?#{window_zoomed_flag},u,z}"
+				"]#[norange]"
+				"#[range=control|9][x]#[norange]"
+			",}",
 	  .text = "Format of text in the pane status lines."
 	},
 
