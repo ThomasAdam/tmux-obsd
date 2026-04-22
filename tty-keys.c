@@ -1,4 +1,4 @@
-/* $OpenBSD: tty-keys.c,v 1.204 2026/04/03 08:23:10 nicm Exp $ */
+/* $OpenBSD: tty-keys.c,v 1.205 2026/04/22 06:57:08 nicm Exp $ */
 
 /*
  * Copyright (c) 2007 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -1640,6 +1640,8 @@ tty_keys_extended_device_attributes(struct tty *tty, const char *buf,
 		tty_default_features(features, "mintty", 0);
 	else if (strncmp(tmp, "foot(", 5) == 0)
 		tty_default_features(features, "foot", 0);
+	else if (strncmp(tmp, "WezTerm ", 7) == 0)
+		tty_default_features(features, "WezTerm", 0);
 	log_debug("%s: received extended DA %.*s", c->name, (int)*size, buf);
 
 	free(c->term_type);
