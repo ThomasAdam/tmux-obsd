@@ -1,4 +1,4 @@
-/* $OpenBSD: server-client.c,v 1.453 2026/04/22 07:25:17 nicm Exp $ */
+/* $OpenBSD: server-client.c,v 1.454 2026/04/23 12:36:15 nicm Exp $ */
 
 /*
  * Copyright (c) 2009 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -2239,13 +2239,16 @@ server_client_dispatch(struct imsg *imsg, void *arg)
 			goto bad;
 		break;
 	case MSG_WRITE_READY:
-		file_write_ready(&c->files, imsg);
+		if (file_write_ready(&c->files, imsg) != 0)
+			goto bad;
 		break;
 	case MSG_READ:
-		file_read_data(&c->files, imsg);
+		if (file_read_data(&c->files, imsg) != 0)
+			goto bad;
 		break;
 	case MSG_READ_DONE:
-		file_read_done(&c->files, imsg);
+		if (file_read_done(&c->files, imsg) != 0)
+			goto bad;
 		break;
 	}
 
