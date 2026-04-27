@@ -1,4 +1,4 @@
-/* $OpenBSD: cmd-parse.y,v 1.57 2026/03/09 14:31:41 nicm Exp $ */
+/* $OpenBSD: cmd-parse.y,v 1.58 2026/04/27 12:31:11 nicm Exp $ */
 
 /*
  * Copyright (c) 2019 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -36,6 +36,8 @@ static void printflike(1,2)	 yyerror(const char *, ...);
 
 static char			*yylex_token(int);
 static char			*yylex_format(void);
+
+#define CMD_PARSE_MAX_ENVIRON_LEN 16384
 
 struct cmd_parse_scope {
 	int				 flag;
@@ -232,6 +234,10 @@ assignment	: EQUALS
 					flag = flag && scope->flag;
 			}
 
+			if (strlen($1) > CMD_PARSE_MAX_ENVIRON_LEN) {
+				yyerror("environment variable is too long");
+				YYABORT;
+			}
 			if ((~flags & CMD_PARSE_PARSEONLY) && flag)
 				environ_put(global_environ, $1, 0);
 			free($1);
@@ -250,6 +256,10 @@ hidden_assignment : HIDDEN EQUALS
 					flag = flag && scope->flag;
 			}
 
+			if (strlen($2) > CMD_PARSE_MAX_ENVIRON_LEN) {
+				yyerror("environment variable is too long");
+				YYABORT;
+			}
 			if ((~flags & CMD_PARSE_PARSEONLY) && flag)
 				environ_put(global_environ, $2, ENVIRON_HIDDEN);
 			free($2);
