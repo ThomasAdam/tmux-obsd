@@ -1,4 +1,4 @@
-/* $OpenBSD: menu.c,v 1.62 2026/03/12 07:15:26 nicm Exp $ */
+/* $OpenBSD: menu.c,v 1.63 2026/04/28 10:01:07 nicm Exp $ */
 
 /*
  * Copyright (c) 2019 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -471,6 +471,7 @@ menu_key_cb(struct client *c, void *data, struct key_event *event)
 	case '\r':
 		goto chosen;
 	case '\033': /* Escape */
+	case '['|KEYC_CTRL:
 	case 'c'|KEYC_CTRL:
 	case 'g'|KEYC_CTRL:
 	case 'q':

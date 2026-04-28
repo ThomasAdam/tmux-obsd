@@ -1,4 +1,4 @@
-/* $OpenBSD: mode-tree.c,v 1.80 2026/03/23 09:03:43 nicm Exp $ */
+/* $OpenBSD: mode-tree.c,v 1.81 2026/04/28 10:01:07 nicm Exp $ */
 
 /*
  * Copyright (c) 2017 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -1276,6 +1276,7 @@ mode_tree_key(struct mode_tree_data *mtd, struct client *c, key_code *key,
 	switch (*key) {
 	case 'q':
 	case '\033': /* Escape */
+	case '['|KEYC_CTRL:
 	case 'g'|KEYC_CTRL:
 		return (1);
 	case KEYC_F1:
