@@ -1,4 +1,4 @@
-/* $OpenBSD: cmd-run-shell.c,v 1.89 2025/05/12 10:16:42 nicm Exp $ */
+/* $OpenBSD: cmd-run-shell.c,v 1.90 2026/04/28 08:34:15 nicm Exp $ */
 
 /*
  * Copyright (c) 2009 Tiago Cunha <me@tiagocunha.org>
@@ -198,8 +198,17 @@ cmd_run_shell_timer(__unused int fd, __unused short events, void* arg)
 		}
 		if (job_run(cmd, 0, NULL, NULL, cdata->s, cdata->cwd, NULL,
 		    cmd_run_shell_callback, cmd_run_shell_free, cdata,
-		    cdata->flags, -1, -1) == NULL)
+		    cdata->flags, -1, -1) == NULL) {
+			if (cdata->item == NULL)
+				status_message_set(c, -1, 1, 0, 0,
+				    "failed to run command: %s", cmd);
+			else {
+				cmdq_error(cdata->item,
+				    "failed to run command: %s", cmd);
+				cmdq_continue(cdata->item);
+			}
 			cmd_run_shell_free(cdata);
+		}
 		return;
 	}
 
