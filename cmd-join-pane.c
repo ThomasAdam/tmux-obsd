@@ -1,4 +1,4 @@
-/* $OpenBSD: cmd-join-pane.c,v 1.52 2025/03/04 08:45:04 nicm Exp $ */
+/* $OpenBSD: cmd-join-pane.c,v 1.53 2026/04/28 08:32:44 nicm Exp $ */
 
 /*
  * Copyright (c) 2011 George Nachman <tmux@georgester.com>
@@ -119,7 +119,7 @@ cmd_join_pane_exec(struct cmd *self, struct cmdq_item *item)
 		size = args_percentage_and_expand(args, 'l', 0, INT_MAX, curval,
 			   item, &cause);
 	} else if (args_has(args, 'p')) {
-		size = args_strtonum_and_expand(args, 'l', 0, 100, item,
+		size = args_strtonum_and_expand(args, 'p', 0, 100, item,
 			   &cause);
 		if (cause == NULL)
 			size = curval * size / 100;
