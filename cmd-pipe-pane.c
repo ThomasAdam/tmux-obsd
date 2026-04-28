@@ -1,4 +1,4 @@
-/* $OpenBSD: cmd-pipe-pane.c,v 1.62 2026/03/05 09:22:08 nicm Exp $ */
+/* $OpenBSD: cmd-pipe-pane.c,v 1.63 2026/04/28 08:47:55 nicm Exp $ */
 
 /*
  * Copyright (c) 2009 Nicholas Marriott <nicholas.marriott@gmail.com>
@@ -129,6 +129,8 @@ cmd_pipe_pane_exec(struct cmd *self, struct cmdq_item *item)
 		sigprocmask(SIG_SETMASK, &oldset, NULL);
 		cmdq_error(item, "fork error: %s", strerror(errno));
 
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
 		free(cmd);
 		return (CMD_RETURN_ERROR);
 	case 0:
