@@ -5261,8 +5261,12 @@ format_replace(struct format_expand_state *es, const char *key, size_t keylen,
 		else {
 			value = xstrdup("");
 			for (i = 0; i < nrep; i++) {
-				if (!format_check_time(es))
+				if (!format_check_time(es)) {
+					free(right);
+					free(left);
+					free(value);
 					goto fail;
+				}
 				xasprintf(&new, "%s%s", value, left);
 				free(value);
 				value = new;
