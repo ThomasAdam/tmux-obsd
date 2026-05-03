@@ -1488,6 +1488,28 @@ const struct options_table_entry options_table[] = {
 		  "A value of 0 means no limit."
 	},
 
+	{ .name = "tree-mode-preview-format",
+	  .type = OPTIONS_TABLE_STRING,
+	  .scope = OPTIONS_TABLE_WINDOW|OPTIONS_TABLE_PANE,
+	  .default_str = "#{?pane_format,"
+			 "#{pane_index}:#{pane_title},"
+			 "#{window_index}:#{window_name}}",
+	  .text = "Format of the preview indicator in tree mode."
+	},
+
+	{ .name = "tree-mode-preview-style",
+	  .type = OPTIONS_TABLE_STRING,
+	  .scope = OPTIONS_TABLE_WINDOW,
+	  .default_str = "fg=#{?#{||:"
+			 "#{&&:#{pane_format},#{pane_active}},"
+			 "#{&&:#{window_format},#{window_active}}},"
+			 "#{display-panes-active-colour},"
+			 "#{display-panes-colour}}",
+	  .flags = OPTIONS_TABLE_IS_STYLE,
+	  .separator = ",",
+	  .text = "Style of preview indicator in tree mode."
+	},
+
 	{ .name = "window-active-style",
 	  .type = OPTIONS_TABLE_STRING,
 	  .scope = OPTIONS_TABLE_WINDOW|OPTIONS_TABLE_PANE,
