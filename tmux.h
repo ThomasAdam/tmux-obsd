@@ -979,6 +979,7 @@ struct screen {
 	char				*title;
 	char				*path;
 	struct screen_titles		*titles;
+	u_int				 ntitles;
 
 	struct grid			*grid;	  /* grid data */
 
