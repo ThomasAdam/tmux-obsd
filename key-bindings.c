@@ -503,7 +503,7 @@ key_bindings_init(void)
 		"bind -Tcopy-mode C-b { send -X cursor-left }",
 		"bind -Tcopy-mode C-g { send -X clear-selection }",
 		"bind -Tcopy-mode C-k { send -X copy-pipe-end-of-line-and-cancel }",
-		"bind -Tcopy-mode C-l { send -X cursor-centre-vertical }",
+		"bind -Tcopy-mode C-l { send -X recentre-top-bottom }",
 		"bind -Tcopy-mode M-l { send -X cursor-centre-horizontal }",
 		"bind -Tcopy-mode C-n { send -X cursor-down }",
 		"bind -Tcopy-mode C-p { send -X cursor-up }",
