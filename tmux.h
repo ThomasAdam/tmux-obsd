@@ -2094,8 +2094,8 @@ struct client {
 	struct event		 message_timer;
 
 	char			*prompt_string;
-	struct format_tree	*prompt_formats;
 	struct utf8_data	*prompt_buffer;
+	struct cmd_find_state	 prompt_state;
 	char			*prompt_last;
 	size_t			 prompt_index;
 	prompt_input_cb		 prompt_inputcb;
