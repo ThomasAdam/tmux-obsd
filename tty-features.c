@@ -89,7 +89,7 @@ static const struct tty_feature tty_feature_clipboard = {
 
 /* Terminal supports OSC 8 hyperlinks. */
 static const char *const tty_feature_hyperlinks_capabilities[] = {
-	"*:Hls=\\E]8;%?%p1%l%tid=%p1%s%;;%p2%s\\E\\\\",
+	"Hls=\\E]8;%?%p1%l%tid=%p1%s%;;%p2%s\\E\\\\",
 	NULL
 };
 static const struct tty_feature tty_feature_hyperlinks = {
@@ -517,8 +517,13 @@ tty_default_features(int *feat, const char *name, u_int version)
 		},
 		{ .name = "foot",
 		  .features = TTY_FEATURES_BASE_MODERN_XTERM ","
+			      "ccolour,"
 			      "cstyle,"
-			      "extkeys"
+			      "extkeys,"
+			      "usstyle,"
+			      "sync,"
+			      "osc7,"
+			      "hyperlinks"
 		},
 		{ .name = "WezTerm",
 		  .features = TTY_FEATURES_BASE_MODERN_XTERM ","
